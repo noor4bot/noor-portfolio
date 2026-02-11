@@ -1,30 +1,232 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Noor | Data Engineering Journey</title>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noor | AI Engineer</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1f1c2c);
+background-size:400% 400%;
+animation:gradientBG 12s ease infinite;
+color:white;
+overflow-x:hidden;
+transition:0.4s;
+}
+
+body.light{
+background:white;
+color:#111;
+}
+
+@keyframes gradientBG{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+section{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:60px 20px;
+text-align:center;
+}
+
+h1{
+font-size:3rem;
+margin-bottom:20px;
+}
+
+h2{
+font-size:2rem;
+margin-bottom:20px;
+}
+
+p{
+max-width:600px;
+line-height:1.6;
+}
+
+.btn{
+margin-top:25px;
+padding:12px 25px;
+border:none;
+background:#00f5ff;
+color:black;
+border-radius:30px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:scale(1.1);
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+padding:20px;
+border-radius:20px;
+margin:15px;
+width:260px;
+backdrop-filter:blur(10px);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px) rotateX(5deg);
+}
+
+.projects{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+input,textarea{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:10px;
+}
+
+.toggle{
+position:fixed;
+top:20px;
+right:20px;
+background:#00f5ff;
+color:black;
+padding:8px 15px;
+border-radius:20px;
+cursor:pointer;
+z-index:1000;
+}
+
+/* Floating shapes */
+.shape{
+position:absolute;
+border-radius:50%;
+background:rgba(255,255,255,0.1);
+animation:float 10s infinite ease-in-out;
+}
+
+.shape:nth-child(1){width:100px;height:100px;top:20%;left:10%;}
+.shape:nth-child(2){width:150px;height:150px;bottom:15%;right:15%;}
+.shape:nth-child(3){width:70px;height:70px;bottom:30%;left:20%;}
+
+@keyframes float{
+0%{transform:translateY(0px)}
+50%{transform:translateY(-30px)}
+100%{transform:translateY(0px)}
+}
+
+/* Scroll animation */
+.hidden{
+opacity:0;
+transform:translateY(50px);
+transition:all 1s;
+}
+.show{
+opacity:1;
+transform:translateY(0);
+}
+
+</style>
 </head>
+
 <body>
 
-    <h1>Hello, I'm Noor 👋</h1>
-    <p>Future AI & Data Engineer</p>
+<div class="toggle" onclick="toggleMode()">Toggle Mode</div>
 
-    <h2>About Me</h2>
-    <p>
-        I am currently learning Python, Pandas, and Data Engineering.
-        Every week I build projects and share my progress.
-    </p>
+<div class="shape"></div>
+<div class="shape"></div>
+<div class="shape"></div>
 
-    <h2>Skills I'm Learning</h2>
-    <ul>
-        <li>Python</li>
-        <li>Pandas</li>
-        <li>Data Cleaning</li>
-        <li>GroupBy & Aggregations</li>
-    </ul>
+<section>
+<h1 class="hidden">Hi, I'm Noor 👩‍💻</h1>
+<p class="hidden">AI Engineer in progress 🚀  
+Passionate about Machine Learning, Data Science, and building intelligent systems.</p>
+<a href="#projects"><button class="btn hidden">View My Work</button></a>
+</section>
 
-    <h2>Projects</h2>
-    <p>Check my GitHub repositories to see my work 🚀</p>
+<section id="projects">
+<h2 class="hidden">Projects</h2>
+<div class="projects">
+<div class="card hidden">
+<h3>Iris ML Model</h3>
+<p>Classification model using Pandas & Scikit-learn</p>
+</div>
+<div class="card hidden">
+<h3>Data Analysis</h3>
+<p>Exploratory Data Analysis with visual insights</p>
+</div>
+<div class="card hidden">
+<h3>Portfolio Website</h3>
+<p>Responsive modern AI themed design</p>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<h2 class="hidden">Contact Me</h2>
+<form id="contact-form" class="hidden">
+<input type="text" name="name" placeholder="Your Name" required>
+<input type="email" name="email" placeholder="Your Email" required>
+<textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+<button type="submit" class="btn">Send Message</button>
+</form>
+</section>
+
+<script>
+/* Dark Light Mode */
+function toggleMode(){
+document.body.classList.toggle("light");
+}
+
+/* Scroll animation */
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+});
+
+document.querySelectorAll(".hidden").forEach(el=>observer.observe(el));
+
+/* EmailJS */
+(function(){
+emailjs.init("YOUR_PUBLIC_KEY"); // ضعي public key هنا
+})();
+
+document.getElementById("contact-form").addEventListener("submit",function(e){
+e.preventDefault();
+
+emailjs.sendForm("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",this)
+.then(()=>{
+alert("Message Sent Successfully 🚀");
+})
+.catch((error)=>{
+alert("Failed ❌ "+error);
+});
+});
+</script>
 
 </body>
 </html>
